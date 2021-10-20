@@ -1,12 +1,11 @@
-﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
-using FluentValidation;
+﻿using FluentValidation.AspNetCore;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.OpenApi.Models;
-using MinimalApI_net6.Endpoints;
-using MinimalApI_net6.Repository;
-using FluentValidation.AspNetCore;
-using MinimalApI_net6.Models;
+using MinimalAPI_net6.Endpoints;
+using MinimalAPI_net6.EndPoints;
+using MinimalAPI_net6.Repository;
 
-namespace MinimalApI_net6.Config
+namespace MinimalAPI_net6.Extentions
 {
     public static class ServiceCollectionExtensions
     {

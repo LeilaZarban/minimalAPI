@@ -1,5 +1,5 @@
 ﻿using FluentValidation;
-using MinimalApI_net6.Models;
+using MinimalAPI_net6.Models;
 
 namespace MinimalApI_net6.Validation
 {

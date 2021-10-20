@@ -1,9 +1,9 @@
 ﻿using FluentValidation;
-using MinimalApI_net6.Config;
-using MinimalApI_net6.Models;
-using MinimalApI_net6.Repository;
+using MinimalAPI_net6.EndPoints;
+using MinimalAPI_net6.Models;
+using MinimalAPI_net6.Repository;
 
-namespace MinimalApI_net6.Endpoints
+namespace MinimalAPI_net6.Endpoints
 {
     public class ProductEndpoint : IEndpoint
     {

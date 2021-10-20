@@ -1,6 +1,4 @@
-using MinimalApI_net6.Config;
-using MinimalApI_net6.Models;
-using MinimalApI_net6.Repository;
+using MinimalAPI_net6.Extentions;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddServices();

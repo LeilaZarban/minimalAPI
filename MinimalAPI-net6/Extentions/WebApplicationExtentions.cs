@@ -1,4 +1,6 @@
-﻿namespace MinimalApI_net6.Config
+﻿using MinimalAPI_net6.EndPoints;
+
+namespace MinimalAPI_net6.Extentions
 {
     public static class WebApplicationExtentions
     {
