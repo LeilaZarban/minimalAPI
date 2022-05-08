@@ -14,21 +14,46 @@ variables:
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
 
-steps:
-- task: NuGetToolInstaller@1
+stages:
+  - stage: build_stage
+    displayName: "Build"
+    jobs:
+      - job: build_job
+        steps:
+          - task: UseDotNet@2
+            displayName: "Install .NET Core SDK"
+            inputs:
+              version: 6.x
+              performMultiLevelLookup: true
+              includePreviewVersions: true # Required for preview versions
 
-- task: NuGetCommand@2
-  inputs:
-    restoreSolution: '$(solution)'
+          - task: DotNetCoreCLI@2
+            displayName: "Dotnet Restore"
+            inputs:
+              command: "restore"
+              feedsToUse: "select"
+              projects: "**/*.csproj"
+              includeNuGetOrg: true
 
-- task: VSBuild@1
-  inputs:
-    solution: '$(solution)'
-    msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:DesktopBuildPackageLocation="$(build.artifactStagingDirectory)\WebApp.zip" /p:DeployIisAppPath="Default Web Site"'
-    platform: '$(buildPlatform)'
-    configuration: '$(buildConfiguration)'
+          - task: DotNetCoreCLI@2
+            displayName: "Dotnet Build"
+            inputs:
+              projects: '$(solution)' # solution file or project files
+              command: "build"
+              arguments: "--configuration $(buildConfiguration)"
 
-- task: VSTest@2
-  inputs:
-    platform: '$(buildPlatform)'
-    configuration: '$(buildConfiguration)'
+          # Publish projects to specified folder.
+          - task: DotNetCoreCLI@2
+            displayName: "Dotnet Publish"
+            inputs:
+              command: "publish"
+              publishWebProjects: true
+              projects: "**/*.csproj"
+              arguments: "-o $(Build.ArtifactStagingDirectory)"
+              zipAfterPublish: true
+              modifyOutputPath: true
+            # this code takes all the files in $(Build.ArtifactStagingDirectory) and uploads them as an artifact of your build.
+          - task: PublishPipelineArtifact@1
+            inputs:
+              targetPath: "$(Build.ArtifactStagingDirectory)"
+              artifactName: "artefactName"
