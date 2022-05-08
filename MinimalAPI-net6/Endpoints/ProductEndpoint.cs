@@ -5,6 +5,7 @@ using MinimalAPI_net6.Repository;
 
 namespace MinimalAPI_net6.Endpoints
 {
+//add Autorization in future
     public class ProductEndpoint : IEndpoint
     {
         public void DefineEndpoints(WebApplication app)
