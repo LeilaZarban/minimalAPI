@@ -49,11 +49,11 @@ stages:
               command: "publish"
               publishWebProjects: true
               projects: "**/*.csproj"
-              arguments: "-o $(Build.ArtifactStagingDirectory)"
+              arguments: "-o $(Build.ArtifactStagingDirectory)/binaris"
               zipAfterPublish: true
               modifyOutputPath: true
             # this code takes all the files in $(Build.ArtifactStagingDirectory) and uploads them as an artifact of your build.
           - task: PublishPipelineArtifact@1
             inputs:
-              targetPath: "$(Build.ArtifactStagingDirectory)"
-              artifactName: "artefactName"
+              targetPath: "$(Build.ArtifactStagingDirectory)/binaris"
+              artifactName: "drop"
